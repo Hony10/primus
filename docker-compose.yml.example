@@ -1,0 +1,24 @@
+version: "3.4"
+
+services:
+  primus-dashboard:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: primus-dashboard:latest
+    container_name: primus-dashboard
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      my-net:
+  primus-scheduler:
+    image: primus-dashboard:latest
+    container_name: primus-scheduler
+    restart: always
+    command: ["/usr/local/bin/scheduler"]
+    networks:
+      my-net:
+networks:
+  my-net:
+    external: true
